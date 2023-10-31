@@ -11,7 +11,7 @@
     </parent>
 
     <name>netty :: design patterns :: chain of responsibility</name>
-    <artifactId>netty-design-patterns-chain of responsibility</artifactId>
+    <artifactId>netty-design-patterns-chain-of-responsibility</artifactId>
     <description>责任链模式在Netty里面的应用</description>
 
     <dependencies>

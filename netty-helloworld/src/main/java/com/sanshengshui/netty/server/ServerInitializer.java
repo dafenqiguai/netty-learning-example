@@ -8,6 +8,9 @@ import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
+/**
+ * 处理器
+ */
 public class ServerInitializer extends ChannelInitializer<SocketChannel> {
     private static final StringDecoder DECODER = new StringDecoder();
     private static final StringEncoder ENCODER = new StringEncoder();
@@ -19,13 +22,13 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
     public void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
 
-        // Add the text line codec combination first,
+        // 添加帧限定符来防止粘包现象
         pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-        // the encoder and decoder are static as these are sharable
+        // 解码和编码，应和客户端一致
         pipeline.addLast(DECODER);
         pipeline.addLast(ENCODER);
 
-        // and then business logic.
+        // 业务逻辑实现类
         pipeline.addLast(SERVER_HANDLER);
     }
 }

@@ -29,18 +29,18 @@ public final class Client {
                     break;
                 }
 
-                // Sends the received line to the server.
+                // 将接收到的行发送到服务器。
                 lastWriteFuture = ch.writeAndFlush(line + "\r\n");
 
-                // If user typed the 'bye' command, wait until the server closes
-                // the connection.
+                // 如果用户输入了“bye”命令，等待服务器关闭
+                // 连接
                 if ("bye".equals(line.toLowerCase())) {
                     ch.closeFuture().sync();
                     break;
                 }
             }
 
-            // Wait until all messages are flushed before closing the channel.
+            // 等到所有消息都被刷新后再关闭通道。
             if (lastWriteFuture != null) {
                 lastWriteFuture.sync();
             }
