@@ -1,5 +1,6 @@
 package com.sanshengshui.netty.server;
 
+import com.sanshengshui.netty.client.NettyClient;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -10,6 +11,8 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.ResourceLeakDetector;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -41,14 +44,14 @@ public class NettyServer {
     private  ChannelFuture channelFuture;
     private  EventLoopGroup bossGroup;
     private  EventLoopGroup workerGroup;
-
+    private static final Log log = LogFactory.getLog(NettyServer.class);
 
     @PostConstruct
     public void init() throws Exception {
-            log.info("Setting resource leak detector level to {}",leakDetectorLevel);
+            log.info("将资源泄漏检测器级别设置为 {}"+leakDetectorLevel);
             ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.valueOf(leakDetectorLevel.toUpperCase()));
 
-            log.info("Starting Server");
+            log.info("启动服务器");
             //创建boss线程组 用于服务端接受客户端的连接
             bossGroup = new NioEventLoopGroup(bossGroupThreadCount);
             // 创建 worker 线程组 用于进行 SocketChannel 的数据读写

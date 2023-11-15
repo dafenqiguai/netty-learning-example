@@ -7,6 +7,8 @@ import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,7 +19,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     /** 发送次数 */
     private AtomicInteger count = new AtomicInteger(1);
 
-
+    private static final Log log = LogFactory.getLog(NettyServerHandler.class);
     /**
      * 建立连接时，发送一条消息
      */

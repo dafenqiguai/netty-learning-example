@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 
 public final class Client {
     public static void main(String[] args) throws Exception {
+        //创建boss线程组 用于连接
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
